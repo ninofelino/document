@@ -1,0 +1,154 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      
+      xmlns:b="http://bootsfaces.net/ui">
+    <h:head>
+        <title>Project Name</title>
+        <meta name="author" content="The Author"></meta>
+    </h:head>
+    <h:body style="padding: 60px;">
+        <b:navBar brand="Project name" brandHref="#" fixed="top" inverse="true">
+            <b:navbarLinks>
+                <b:navLink value="Home" href="#"></b:navLink>
+                
+                
+                <b:navLink value="#{myBundle.ZdeptHeading}..." href="#about"></b:navLink>
+                <b:navLink value="#{myBundle.ZdocLineHeading}..." href="#about"></b:navLink>
+                <b:navLink value="#{myBundle.ZprivilageHeading}..." href="#about"></b:navLink>
+                
+                <b:navLink value="#{myBundle.ZstatusHeading}..." href="#about"></b:navLink>
+                <b:navLink value="#{myBundle.ZstatusdocHeading}..." href="#about"></b:navLink>
+                <b:navLink value="#{myBundle.ZuserHeading}..." href="#about"></b:navLink>
+                
+                
+                <b:navLink value="Contact" href="#contact"></b:navLink>
+            </b:navbarLinks>
+        </b:navBar>
+        <b:container>
+            <b:jumbotron>
+                <h1>Document master</h1>
+             
+                <p> Use this JSF document as a way to quickly start any new project.</p>
+                <p> All you get is this text and a mostly barebone JSF document.</p>
+                <p>
+                    <a href="https://github.com/TheCoder4eu/BootsFaces-examples/blob/master/src/main/webapp/starter_template.xhtml" class="btn btn-lg btn-info">View Page Source »</a>
+                </p>
+            </b:jumbotron>
+             <p:dataTable id="datalist"
+                         value="#{zdocController.items}"
+                         lazy="false"
+                         rowKey="#{item.zdocId}"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{zdocController.selected}">
+                <!--
+                         To enable Lazy Loading, please copy/replace the following lines above,
+                         and be sure to replace the word HASH with the # symbol:
+                
+                         value="HASH{zdocController.lazyItems}"
+                         lazy="true"
+                         rowKey="HASH{item.zdocId}"  <<< Remove this line
+                -->
+
+
+                <p:ajax event="rowSelect"   update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:ZdocDataTableContextMenu"/>
+                <p:ajax event="rowUnselect" update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:ZdocDataTableContextMenu"/>
+                <p:ajax event="contextMenu" update="@form:createButton @form:viewButton @form:editButton @form:deleteButton"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('ZdocListForm:viewButton').click();"/>
+
+                <p:column sortBy="#{item.zdocId}" filterBy="#{item.zdocId}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListZdocTitle_zdocId}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.zdocId}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.name}" filterBy="#{item.name}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListZdocTitle_name}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.name}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.reff}" filterBy="#{item.reff}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListZdocTitle_reff}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.reff}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.tgl}" filterBy="#{item.tgl}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListZdocTitle_tgl}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.tgl}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:outputText>
+                </p:column>
+
+
+                <p:column sortBy="#{item.judul}" filterBy="#{item.judul}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListZdocTitle_judul}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.judul}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.zstatusId}" filterBy="#{item.zstatusId}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListZdocTitle_zstatusId}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.zstatusId}"/>
+                </p:column>
+
+                <!--
+                                    <p:column sortBy="#{item.descript}" filterBy="#{item.descript}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListZdocTitle_descript}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.descript}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.zuserId}" filterBy="#{item.zuserId}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListZdocTitle_zuserId}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.zuserId}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.zstatusdocId}" filterBy="#{item.zstatusdocId}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListZdocTitle_zstatusdocId}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.zstatusdocId}"/>
+                                    </p:column>
+                -->
+
+            </p:dataTable>
+            
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{zdocController.prepareCreate}" update=":ZdocCreateForm" oncomplete="PF('ZdocCreateDialog').show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle.View}" update=":ZdocViewForm" oncomplete="PF('ZdocViewDialog').show()" disabled="#{empty zdocController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":ZdocEditForm" oncomplete="PF('ZdocEditDialog').show()" disabled="#{empty zdocController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{zdocController.delete}" update=":growl,datalist" disabled="#{empty zdocController.selected}">
+                <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+
+         
+        </b:container>
+
+    </h:body>
+</html>
